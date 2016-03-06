@@ -5,20 +5,20 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static jt.poker.texasholdemengine.StandardCard.Rank.*;
-import static jt.poker.texasholdemengine.StandardCard.Suit.*;
-import static jt.poker.texasholdemengine.StandardCard.getCard;
+import static jt.poker.texasholdemengine.Card.Rank.*;
+import static jt.poker.texasholdemengine.Card.Suit.*;
+import static jt.poker.texasholdemengine.Card.getCard;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Josh on 27/02/16.
  */
-public class StandardCardTest {
+public class CardTest {
 
-    private StandardCard mLowCard;
-    private StandardCard mMidCard;
-    private StandardCard mHighCard;
+    private Card mLowCard;
+    private Card mMidCard;
+    private Card mHighCard;
 
     @Before
     public void setUp() throws Exception {
@@ -29,7 +29,7 @@ public class StandardCardTest {
 
     @Test
     public void testNewDeck() throws Exception {
-        List<StandardCard> cards = StandardCard.newDeck();
+        List<Card> cards = Card.newDeck();
         assertTrue(cards.size() == 52);
     }
 

@@ -6,9 +6,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static jt.poker.texasholdemengine.StandardCard.Rank.*;
-import static jt.poker.texasholdemengine.StandardCard.Suit.*;
-import static jt.poker.texasholdemengine.StandardCard.getCard;
+import static jt.poker.texasholdemengine.Card.Rank.*;
+import static jt.poker.texasholdemengine.Card.Suit.*;
+import static jt.poker.texasholdemengine.Card.getCard;
 import static org.junit.Assert.assertTrue;
 
 /**

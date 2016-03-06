@@ -1,6 +1,5 @@
 package jt.poker.texasholdemengine;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,7 +23,7 @@ public class PokerGameEngineTest {
     public void setUp() {
         mPlayer1 = new Player("John Doe");
         mPlayer2 = new Player("Jane Doe");
-        mDeck = new Deck(new ArrayList<Card>(StandardCard.newDeck()), new Random(0));
+        mDeck = new Deck(new ArrayList<>(Card.newDeck()), new Random(0));
 
         mGame = new PokerGameEngine(mDeck, new ArrayList<>(Arrays.asList(mPlayer1, mPlayer2)));
     }

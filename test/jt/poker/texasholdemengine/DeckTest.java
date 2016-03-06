@@ -4,12 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-import static jt.poker.texasholdemengine.StandardCard.Rank.*;
-import static jt.poker.texasholdemengine.StandardCard.Suit.*;
-import static jt.poker.texasholdemengine.StandardCard.getCard;
+import static jt.poker.texasholdemengine.Card.Rank.*;
+import static jt.poker.texasholdemengine.Card.Suit.*;
+import static jt.poker.texasholdemengine.Card.getCard;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -22,7 +21,7 @@ public class DeckTest {
 
     @Before
     public void setUp() throws Exception {
-        mDeck = new Deck(new ArrayList<Card>(StandardCard.newDeck()), new Random(0));
+        mDeck = new Deck(new ArrayList<>(Card.newDeck()), new Random(0));
         mEmptyDeck = new Deck(new ArrayList<Card>());
     }
 
