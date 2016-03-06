@@ -8,12 +8,12 @@ import java.util.List;
  * Created by Josh on 26/02/16.
  */
 public class Player implements IPlayer {
-    private String mName;
+    private final String mName;
     private ArrayList<Card> mHoldCards;
-    private int stack;
     private List<Card> mCommunityCards;
+    private int mStack;
 
-    public Player(String name, PokerGameEngine game) {
+    public Player(String name) {
         mName = name;
     }
 
@@ -39,26 +39,11 @@ public class Player implements IPlayer {
 
     @Override
     public void addStack(int increment) {
-
+        mStack += increment;
     }
 
     @Override
     public int getStackSize() {
-        return 0;
-    }
-
-    @Override
-    public void setHand(List<Card> hand) {
-
-    }
-
-    @Override
-    public List<Card> getHand() {
-        List<Card> cards = new ArrayList<>(7);
-        cards.addAll(getHoldCards());
-        cards.addAll(getCommunityCards());
-        Collections.sort(cards);
-        Collections.reverse(cards);
-        return new ArrayList<>(cards.subList(0, Math.min(cards.size(), 5)));
+        return mStack;
     }
 }

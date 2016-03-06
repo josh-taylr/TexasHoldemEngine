@@ -17,7 +17,7 @@ public class PlayerTest {
     @Before
     public void setUp() throws Exception {
         mCommunityCards = new ArrayList<>();
-        mJohnDoe = new Player("John Doe", null);
+        mJohnDoe = new Player("John Doe");
         mJohnDoe.setCommunityCards(mCommunityCards);
     }
 

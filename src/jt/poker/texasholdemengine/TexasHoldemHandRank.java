@@ -8,25 +8,12 @@ public class TexasHoldemHandRank {
 	private final static int TWO_PAIR = 2;
 	private final static int THREE_OF_A_KIND = 3;
 	private static final int MAX_HAND_SIZE = 5;
-    private List<Card> mCommunityCards;
 
-    public TexasHoldemHandRank() {
-
-	}
-
-	public void setCommunityCards(List<Card> communityCards) {
-		mCommunityCards = communityCards;
-	}
-
-	public List<Card> getCommunityCards() {
-		return mCommunityCards;
-	}
-
-	public void updatePlayerHand(IPlayer player)
+	public List<Card> getHand(List<Card> communityCards, List<Card> playerCards)
 	{
 		final List<Card> pool = new ArrayList<>();
-		pool.addAll(getCommunityCards());
-		pool.addAll(player.getHoldCards());
+		pool.addAll(communityCards);
+		pool.addAll(playerCards);
 
 		final List<Card> hand = new ArrayList<>();
 
@@ -37,7 +24,7 @@ public class TexasHoldemHandRank {
             Card card = pool.get(i);
             for (int j = i+1; j < pool.size(); j++) {
                 Card other = pool.get(j);
-                if (card.hasSameSuit(other) && Math.abs(card.compareRank(other)) == 1) {
+                if (card.getSuit() == other.getSuit() && Math.abs(card.compareTo(other)) == 1) {
 
                 }
             }
@@ -94,6 +81,6 @@ public class TexasHoldemHandRank {
             hand.add(pool.remove(i));
         }
 
-		player.setHand(hand);
+		return hand;
 	}
 }

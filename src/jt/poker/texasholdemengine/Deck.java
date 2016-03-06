@@ -7,7 +7,6 @@ import java.util.Random;
  * Created by Josh on 26/02/16.
  */
 public class Deck implements IDeck {
-
     private final List<Card> mCards;
     private final Random mRandom;
 

@@ -1,6 +1,7 @@
 package jt.poker.texasholdemengine;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -15,12 +16,10 @@ import static org.junit.Assert.assertTrue;
  * Created by Josh on 6/03/16.
  */
 public class TexasHoldemHandRankTest {
-    private IPlayer mJohnDoe;
-    private TexasHoldemHandRank mHandRank;
+    private static TexasHoldemHandRank mHandRank;
 
-    @Before
-    public void setUp() throws Exception {
-        mJohnDoe = new Player("John Doe", null);
+    @BeforeClass
+    public static void oneTimeSetUp() {
         mHandRank = new TexasHoldemHandRank();
     }
 
@@ -35,21 +34,23 @@ public class TexasHoldemHandRankTest {
     }
 
     @Test
-    public void testUpdatePlayerHand() throws Exception {
+    public void testGetHandHand() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerHighCard() throws Exception {
-        mHandRank.setCommunityCards(Arrays.<Card>asList(
+    public void testGetHandHighCard() throws Exception {
+        List<Card> communitCards = Arrays.asList(
                 getCard(ACE, SPADES),
                 getCard(KING, HEARTS),
                 getCard(JACK, DIAMONDS),
                 getCard(SEVEN, SPADES),
-                getCard(TWO, SPADES)));
-        mJohnDoe.setHoldCards(Arrays.<Card>asList(getCard(EIGHT, SPADES), getCard(FIVE, CLUBS)));
-        mHandRank.updatePlayerHand(mJohnDoe);
-        List<Card> hand = mJohnDoe.getHand();
+                getCard(TWO, SPADES));
+
+        List<Card> playerCards = Arrays.asList(getCard(EIGHT, SPADES), getCard(FIVE, CLUBS));
+
+        List<Card> hand = mHandRank.getHand(communitCards, playerCards);
+
         assertTrue(hand.containsAll(Arrays.asList(
                 getCard(ACE, SPADES),
                 getCard(KING, HEARTS),
@@ -60,42 +61,42 @@ public class TexasHoldemHandRankTest {
     }
 
     @Test
-    public void testUpdatePlayerPair() throws Exception {
+    public void testGetHandPair() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerTwoPair() throws Exception {
+    public void testGetHandTwoPair() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerThreeOfAKind() throws Exception {
+    public void testGetHandThreeOfAKind() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerStraight() throws Exception {
+    public void testGetHandStraight() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerFlush() throws Exception {
+    public void testGetHandFlush() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerFullHouse() throws Exception {
+    public void testGetHandFullHouse() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerFourOfAKind() throws Exception {
+    public void testGetHandFourOfAKind() throws Exception {
 
     }
 
     @Test
-    public void testUpdatePlayerStraightFlush() throws Exception {
+    public void testGetHandStraightFlush() throws Exception {
 
     }
 }

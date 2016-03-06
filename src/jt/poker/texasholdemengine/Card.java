@@ -3,12 +3,11 @@ package jt.poker.texasholdemengine;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * http://wikipedia.org/wiki/Standard_52-card_deck
- */
 public class Card implements Comparable<Card> {
-
     private static final List<Card> sProtoDeck = new ArrayList<>();
+
+    private final Rank mRank;
+    private final Suit mSuit;
 
     public enum Rank {
         TWO,
@@ -32,9 +31,6 @@ public class Card implements Comparable<Card> {
         HEARTS,
         SPADES
     }
-
-    private final Rank mRank;
-    private final Suit mSuit;
 
     // Initialize prototype deck
     static {
