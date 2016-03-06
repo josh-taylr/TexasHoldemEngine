@@ -43,6 +43,30 @@ public class TexasHoldemHandRank {
             }
         }
 
+        //Full House
+        for(int i = 0; i + THREE_OF_A_KIND <= pool.size() && hand.size() + THREE_OF_A_KIND <= MAX_HAND_SIZE; i++) {
+            List<Card> tripsWindow = pool.subList(i,i + THREE_OF_A_KIND);
+            if(Collections.frequency(tripsWindow, tripsWindow.get(0)) == THREE_OF_A_KIND) {
+                for (int j = 0; j + TWO_PAIR <= pool.size() && hand.size() + TWO_PAIR <= MAX_HAND_SIZE; j++) {
+                    List<Card> pairWindow = pool.subList(j, j + TWO_PAIR);
+
+                    if (Collections.frequency(pairWindow, pairWindow.get(0)) == TWO_PAIR && !pairWindow.get(0).equals(tripsWindow.get(0))) {
+                        hand.add(tripsWindow.get(0));
+                        hand.add(tripsWindow.get(1));
+                        hand.add(tripsWindow.get(2));
+                        hand.add(pairWindow.get(0));
+                        hand.add(pairWindow.get(1));
+                        pool.removeAll(pairWindow);
+                        pool.removeAll(tripsWindow);
+                    }
+                    else
+                        j++;
+                }
+            }
+            else
+                i++;
+        }
+
 		//three of a kind
         for (int i = 0; i + THREE_OF_A_KIND <= pool.size() && hand.size() + THREE_OF_A_KIND <= MAX_HAND_SIZE;) {
             List<Card> window = pool.subList(i, i + THREE_OF_A_KIND);
