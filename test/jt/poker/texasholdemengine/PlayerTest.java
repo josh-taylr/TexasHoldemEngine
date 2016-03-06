@@ -23,7 +23,7 @@ public class PlayerTest {
     @Before
     public void setUp() throws Exception {
         mCommunityCards = new ArrayList<>();
-        mJohnDoe = new Player("John Doe");
+        mJohnDoe = new Player("John Doe", null);
         mJohnDoe.setCommunityCards(mCommunityCards);
     }
 
@@ -39,68 +39,6 @@ public class PlayerTest {
 
     @Test
     public void testGetStackSize() throws Exception {
-
-    }
-
-
-    @Test
-    public void testGetHandHighCard() throws Exception {
-        mCommunityCards.addAll(Arrays.asList(
-                getCard(ACE, SPADES),
-                getCard(KING, HEARTS),
-                getCard(JACK, DIAMONDS),
-                getCard(SEVEN, SPADES),
-                getCard(TWO, SPADES)
-        ));
-        mJohnDoe.setHoldCards(Arrays.<Card>asList(getCard(EIGHT, SPADES), getCard(FIVE, CLUBS)));
-
-        List<Card> hand = mJohnDoe.getHand();
-        assertTrue(hand.containsAll(Arrays.asList(
-                getCard(ACE, SPADES),
-                getCard(KING, HEARTS),
-                getCard(JACK, DIAMONDS),
-                getCard(EIGHT, SPADES),
-                getCard(SEVEN, SPADES)
-        )));
-    }
-
-    @Test
-    public void testGetHandPair() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandTwoPair() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandThreeOfAKind() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandStraight() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandFlush() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandFullHouse() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandFourOfAKind() throws Exception {
-
-    }
-
-    @Test
-    public void testGetHandStraightFlush() throws Exception {
 
     }
 }
