@@ -67,8 +67,33 @@ public class Card implements Comparable<Card> {
         return mRank + " of " + mSuit;
     }
 
+    public int compareRank(Card o) {
+        return getRank().compareTo(o.getRank());
+    }
+
+    /**
+     * WARNING: The natural ordering of {@link Card} is not consistent with {@link Card#equals(Object)}.
+     */
     @Override
     public int compareTo(Card o) {
+        if (o == null) {
+            throw new NullPointerException();
+        }
         return getRank().compareTo(o.getRank());
+    }
+
+    /**
+     * WARNING: The natural ordering of {@link Card} is not consistent with equals(Object).
+     */
+    @SuppressWarnings("SimplifiableIfStatement")
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Card)) {
+            return false;
+        }
+        return compareTo((Card) obj) == 0 && getSuit().compareTo(((Card) obj).getSuit()) == 0;
     }
 }
