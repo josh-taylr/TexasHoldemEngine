@@ -20,9 +20,6 @@ public class TexasHoldemHandRank {
 
 		Collections.sort(pool, Collections.reverseOrder());
 
-        //straight flush
-
-
         //flush
         final Map<Card.Suit, List<Card>> map = new EnumMap<>(Card.Suit.class);
         for (Card card : pool) {
@@ -36,28 +33,15 @@ public class TexasHoldemHandRank {
         for (Card.Suit suit : Card.Suit.values()) {
             List<Card> cards = map.get(suit);
             if (cards != null && MAX_HAND_SIZE <= cards.size()) {
+                //straight flush
+                if (getStraight(cards, hand)) return hand;
                 hand.addAll(cards.subList(0, MAX_HAND_SIZE));
                 return hand;
             }
         }
 
         //straight
-        for (int i = 0; i + MAX_HAND_SIZE <= pool.size(); i++) {
-            List<Card> window = pool.subList(i, i + MAX_HAND_SIZE);
-            if (allRanksConsecutive(window)) {
-                hand.addAll(window);
-                return hand;
-            }
-        }
-        //ace low straight
-        if (pool.get(0).getRank() == Rank.ACE && pool.get(pool.size()-1).getRank() == Rank.TWO) {
-            List<Card> window = pool.subList(pool.size() - (MAX_HAND_SIZE - 1), pool.size());
-            if (allRanksConsecutive(window)) {
-                hand.addAll(window);
-                hand.add(pool.get(0));
-                return hand;
-            }
-        }
+        if (getStraight(pool, hand)) return hand;
 
         //four of a kind
         for (int i = 0; i + FOUR_OF_A_KIND <= pool.size() && hand.size() + FOUR_OF_A_KIND <= MAX_HAND_SIZE;) {
@@ -96,6 +80,27 @@ public class TexasHoldemHandRank {
 
 		return hand;
 	}
+
+    private boolean getStraight(List<Card> pool, List<Card> hand) {
+        //ace high or lower
+        for (int i = 0; i + MAX_HAND_SIZE <= pool.size(); i++) {
+            List<Card> window = pool.subList(i, i + MAX_HAND_SIZE);
+            if (allRanksConsecutive(window)) {
+                hand.addAll(window);
+                return true;
+            }
+        }
+        //five high
+        if (pool.get(0).getRank() == Rank.ACE && pool.get(pool.size()-1).getRank() == Rank.TWO) {
+            List<Card> window = pool.subList(pool.size() - (MAX_HAND_SIZE - 1), pool.size());
+            if (allRanksConsecutive(window)) {
+                hand.addAll(window);
+                hand.add(pool.get(0));
+                return true;
+            }
+        }
+        return false;
+    }
 
     private boolean allRanksConsecutive(List<Card> cards) {
         for (int i = 0; i+1 < cards.size(); i++) {
