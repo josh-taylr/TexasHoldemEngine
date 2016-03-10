@@ -114,6 +114,27 @@ public class TexasHoldemHandRankTest {
     @Test
     public void testGetHandStraight() throws Exception {
         final List<Card> communityCards = Arrays.asList(
+                getCard(FOUR, CLUBS),
+                getCard(THREE, SPADES),
+                getCard(SEVEN, SPADES),
+                getCard(QUEEN, CLUBS),
+                getCard(FIVE, DIAMONDS));
+        final List<Card> playerCards = Arrays.asList(getCard(SIX, SPADES), getCard(TEN, HEARTS));
+
+        List<Card> hand = mHandRank.getHand(communityCards, playerCards);
+
+        assertEquals(hand.size(), 5);
+        assertTrue(hand.containsAll(Arrays.asList(
+                getCard(FOUR, CLUBS),
+                getCard(THREE, SPADES),
+                getCard(SEVEN, SPADES),
+                getCard(FIVE, DIAMONDS),
+                getCard(SIX, SPADES))));
+    }
+
+    @Test
+    public void testGetHandStraightOverThreeOfAKind() throws Exception {
+        final List<Card> communityCards = Arrays.asList(
                 getCard(ACE, SPADES),
                 getCard(ACE, CLUBS),
                 getCard(QUEEN, SPADES),
@@ -124,25 +145,14 @@ public class TexasHoldemHandRankTest {
         List<Card> hand = mHandRank.getHand(communityCards, playerCards);
 
         assertEquals(hand.size(), 5);
-        List<Card> aceOfSpades = Arrays.asList(
-                getCard(ACE, SPADES),
+        assertTrue(hand.containsAll(Arrays.asList(
                 getCard(KING, HEARTS),
                 getCard(QUEEN, SPADES),
                 getCard(JACK, DIAMONDS),
-                getCard(TEN, SPADES));
-        List<Card> aceOfClubs = Arrays.asList(
-                getCard(ACE, HEARTS),
-                getCard(KING, HEARTS),
-                getCard(QUEEN, SPADES),
-                getCard(JACK, DIAMONDS),
-                getCard(TEN, SPADES));
-        List<Card> aceOfDiamonds = Arrays.asList(
-                getCard(ACE, DIAMONDS),
-                getCard(KING, HEARTS),
-                getCard(QUEEN, SPADES),
-                getCard(JACK, DIAMONDS),
-                getCard(TEN, SPADES));
-        assertTrue(hand.containsAll(aceOfSpades) || hand.containsAll(aceOfClubs) || hand.containsAll(aceOfDiamonds));
+                getCard(TEN, SPADES))) &&
+                hand.contains(getCard(ACE, SPADES)) ||
+                hand.contains(getCard(ACE, CLUBS)) ||
+                hand.contains(getCard(ACE, DIAMONDS)));
     }
 
     @Test
@@ -164,6 +174,27 @@ public class TexasHoldemHandRankTest {
                 getCard(QUEEN, SPADES),
                 getCard(SEVEN, SPADES),
                 getCard(TEN, SPADES))));
+    }
+
+    @Test
+    public void testGetHandFlushOverStraight() throws Exception {
+        final List<Card> communityCards = Arrays.asList(
+                getCard(JACK, SPADES),
+                getCard(FIVE, HEARTS),
+                getCard(SEVEN, HEARTS),
+                getCard(TEN, HEARTS),
+                getCard(EIGHT, DIAMONDS));
+        final List<Card> playerCards = Arrays.asList(getCard(TWO, HEARTS), getCard(NINE, HEARTS));
+
+        List<Card> hand = mHandRank.getHand(communityCards, playerCards);
+
+        assertEquals(hand.size(), 5);
+        assertTrue(hand.containsAll(Arrays.asList(
+                getCard(FIVE, HEARTS),
+                getCard(SEVEN, HEARTS),
+                getCard(TEN, HEARTS),
+                getCard(TWO, HEARTS),
+                getCard(NINE, HEARTS))));
     }
 
     @Test
@@ -190,26 +221,89 @@ public class TexasHoldemHandRankTest {
     @Test
     public void testGetHandFourOfAKind() throws Exception {
         final List<Card> communityCards = Arrays.asList(
-                getCard(ACE, SPADES),
-                getCard(ACE, HEARTS),
-                getCard(SIX, SPADES),
+                getCard(TEN, SPADES),
+                getCard(TEN, HEARTS),
+                getCard(QUEEN, SPADES),
                 getCard(TWO, HEARTS),
                 getCard(SEVEN, DIAMONDS));
-        final List<Card> playerCards = Arrays.asList(getCard(ACE, DIAMONDS), getCard(ACE, CLUBS));
+        final List<Card> playerCards = Arrays.asList(getCard(TEN, DIAMONDS), getCard(TEN, CLUBS));
 
         List<Card> hand = mHandRank.getHand(communityCards, playerCards);
 
         assertEquals(hand.size(), 5);
         assertTrue(hand.containsAll(Arrays.asList(
-                getCard(ACE, SPADES),
-                getCard(ACE, HEARTS),
-                getCard(ACE, DIAMONDS),
-                getCard(ACE, CLUBS),
-                getCard(SEVEN, DIAMONDS))));
+                getCard(TEN, SPADES),
+                getCard(TEN, HEARTS),
+                getCard(TEN, DIAMONDS),
+                getCard(TEN, CLUBS),
+                getCard(QUEEN, SPADES))));
     }
 
     @Test
     public void testGetHandStraightFlush() throws Exception {
+        final List<Card> communityCards = Arrays.asList(
+                getCard(JACK, HEARTS),
+                getCard(TEN, HEARTS),
+                getCard(SEVEN, HEARTS),
+                getCard(NINE, HEARTS),
+                getCard(QUEEN, HEARTS));
+        final List<Card> playerCards = Arrays.asList(getCard(EIGHT, HEARTS), getCard(EIGHT, CLUBS));
+
+        List<Card> hand = mHandRank.getHand(communityCards, playerCards);
+
+        assertEquals(hand.size(), 5);
+        assertTrue(hand.containsAll(Arrays.asList(
+                getCard(JACK, HEARTS),
+                getCard(TEN, HEARTS),
+                getCard(NINE, HEARTS),
+                getCard(QUEEN, HEARTS),
+                getCard(EIGHT, HEARTS))));
+    }
+
+    @Test
+    public void testGetHandStraightFlushOverFlush() throws Exception {
+        final List<Card> communityCards = Arrays.asList(
+                getCard(NINE, SPADES),
+                getCard(ACE, SPADES),
+                getCard(JACK, SPADES),
+                getCard(EIGHT, SPADES),
+                getCard(TEN, SPADES));
+        final List<Card> playerCards = Arrays.asList(getCard(SEVEN, SPADES), getCard(QUEEN, DIAMONDS));
+
+        List<Card> hand = mHandRank.getHand(communityCards, playerCards);
+
+        assertEquals(hand.size(), 5);
+        assertTrue(hand.containsAll(Arrays.asList(
+                getCard(NINE, SPADES),
+                getCard(JACK, SPADES),
+                getCard(EIGHT, SPADES),
+                getCard(TEN, SPADES),
+                getCard(SEVEN, SPADES))));
+    }
+
+    @Test
+    public void testGetHandFiveHighStraightFlushOverFlush() throws Exception {
+        final List<Card> communityCards = Arrays.asList(
+                getCard(FOUR, SPADES),
+                getCard(TWO, SPADES),
+                getCard(QUEEN, SPADES),
+                getCard(ACE, SPADES),
+                getCard(FIVE, SPADES));
+        final List<Card> playerCards = Arrays.asList(getCard(THREE, SPADES), getCard(KING, SPADES));
+
+        List<Card> hand = mHandRank.getHand(communityCards, playerCards);
+
+        assertEquals(hand.size(), 5);
+        assertTrue(hand.containsAll(Arrays.asList(
+                getCard(FOUR, SPADES),
+                getCard(TWO, SPADES),
+                getCard(THREE, SPADES),
+                getCard(ACE, SPADES),
+                getCard(FIVE, SPADES))));
+    }
+
+    @Test
+    public void testGetHandRoyalFlush() throws Exception {
         final List<Card> communityCards = Arrays.asList(
                 getCard(ACE, SPADES),
                 getCard(SEVEN, SPADES),
