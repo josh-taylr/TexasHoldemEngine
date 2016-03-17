@@ -3,36 +3,33 @@ package jt.poker.texasholdemengine;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Josh on 28/02/16.
- */
+import static jt.poker.texasholdemengine.Card.Rank.*;
+import static jt.poker.texasholdemengine.Card.Suit.*;
+import static jt.poker.texasholdemengine.Card.getCard;
+import static org.junit.Assert.*;
+
 public class PlayerTest {
 
     private IPlayer mJohnDoe;
-    private List<Card> mCommunityCards;
 
     @Before
     public void setUp() throws Exception {
-        mCommunityCards = new ArrayList<>();
-        mJohnDoe = new Player("John Doe");
-        mJohnDoe.setCommunityCards(mCommunityCards);
+        mJohnDoe = new Player("John Doe", 0);
     }
 
     @Test
-    public void testSetCards() throws Exception {
+    public void testSetCardsIsShallowCopy() throws Exception {
+        List<Card> cards = Arrays.asList(getCard(TEN, HEARTS), getCard(FOUR, CLUBS));
+        mJohnDoe.setHoldCards(cards);
+        cards.set(0, getCard(FIVE, DIAMONDS));
+        cards.set(1, getCard(SIX, SPADES));
 
-    }
+        final List<Card> holdCards = mJohnDoe.getHoldCards();
 
-    @Test
-    public void testSetCardsShallowCopy() throws Exception {
-
-    }
-
-    @Test
-    public void testGetStackSize() throws Exception {
-
+        assertNotNull(holdCards);
+        assertTrue(holdCards.containsAll(Arrays.asList(getCard(TEN, HEARTS), getCard(FOUR, CLUBS))));
     }
 }

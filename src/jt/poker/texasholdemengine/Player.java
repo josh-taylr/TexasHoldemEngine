@@ -1,20 +1,17 @@
 package jt.poker.texasholdemengine;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Josh on 26/02/16.
- */
 public class Player implements IPlayer {
     private final String mName;
     private ArrayList<Card> mHoldCards;
     private List<Card> mCommunityCards;
     private int mStack;
 
-    public Player(String name) {
+    public Player(String name, int stack) {
         mName = name;
+        mStack = stack;
     }
 
     @Override
@@ -38,12 +35,22 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void addStack(int increment) {
-        mStack += increment;
+    public void setStack(int stack) {
+        mStack = stack;
     }
 
     @Override
-    public int getStackSize() {
+    public int getStack() {
         return mStack;
+    }
+
+    @Override
+    public void bet(int size) {
+
+    }
+
+    @Override
+    public void fold() {
+
     }
 }
